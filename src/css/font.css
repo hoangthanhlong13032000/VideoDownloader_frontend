@@ -1,0 +1,49 @@
+@font-face {
+  font-family: "GoogleSans-Black";
+
+  src: url("../assets/font/GoogleSans-Black.otf") format("opentype");
+}
+@font-face {
+  font-family: "GoogleSans-BlackItalic";
+  src: url("../assets/font/GoogleSans-BlackItalic.otf") format("opentype");
+}
+@font-face {
+  font-family: "GoogleSans-Bold";
+  src: url("../assets/font/GoogleSans-Bold.otf") format("opentype");
+}
+@font-face {
+  font-family: "GoogleSans-BoldItalic";
+  src: url("../assets/font/GoogleSans-BoldItalic.otf") format("opentype");
+}
+@font-face {
+  font-family: "GoogleSans-Italic";
+  src: url("../assets/font/GoogleSans-Italic.otf") format("opentype");
+}
+@font-face {
+  font-family: "GoogleSans-Light";
+  src: url("../assets/font/GoogleSans-Light.otf") format("opentype");
+}
+@font-face {
+  font-family: "GoogleSans-LightItalic";
+  src: url("../assets/font/GoogleSans-LightItalic.otf") format("opentype");
+}
+@font-face {
+  font-family: "GoogleSans-Medium";
+  src: url("../assets/font/GoogleSans-Medium.otf") format("opentype");
+}
+@font-face {
+  font-family: "GoogleSans-MediumItalic";
+  src: url("../assets/font/GoogleSans-MediumItalic.otf") format("opentype");
+}
+@font-face {
+  font-family: "GoogleSans-Regular";
+  src: url("../assets/font/GoogleSans-Regular.otf") format("opentype");
+}
+@font-face {
+  font-family: "GoogleSans-Thin";
+  src: url("../assets/font/GoogleSans-Thin.otf") format("opentype");
+}
+@font-face {
+  font-family: "GoogleSans-ThinItalic";
+  src: url("../assets/font/GoogleSans-ThinItalic.otf") format("opentype");
+}

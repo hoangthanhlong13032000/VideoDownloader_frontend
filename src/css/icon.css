@@ -1,0 +1,178 @@
+.d-icon {
+  width: 20px;
+  height: 20px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.sm-icon {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  padding: 0 0 0 7px !important;
+}
+/* icon tổng quan */
+.icon-overview {
+  background-image: url("../assets/Icon/slibarmenu.png");
+  background-position: 0 6px;
+}
+/* icon báo cáo */
+.icon-report {
+  background-image: url("../assets/Icon/slibarmenu.png");
+  background-position: 0 -273px;
+}
+/* icon đơn hàng */
+.icon-order {
+  background-image: url("../assets/Icon/ic_order.png");
+  background-position: center;
+}
+/* icon mua hàng */
+.icon-shoppingCart {
+  background-image: url("../assets/Icon/slibarmenu.png");
+  background-position: 0 -33px;
+}
+
+/* icon khuyến mãi */
+.icon-gift {
+  background-image: url("../assets/Icon/slibarmenu.png");
+  background-position: 0 -193px;
+}
+.icon-home {
+  background-image: url("../assets/Icon/icon-home.png");
+  background-size: contain !important;
+}
+/* icon khuyến mãi */
+.icon-gift-black {
+  background-image: url("../assets/Icon/list-icon.png");
+  background-position: 0 -193px;
+}
+.icon-earth {
+  background-image: url("../assets/Icon/list-icon.png");
+  background-position: -8px -5px;
+}
+.icon-heart {
+  background-image: url("../assets/Icon/list-icon.png");
+  background-position: -70px -35px;
+}
+.icon-setting {
+  background-image: url("../assets/Icon/list-icon.png");
+  background-position: -162px -162px;
+}
+/* icon danh mục */
+.icon-category {
+  background-image: url("../assets/Icon/slibarmenu.png");
+  background-position: 0 -233px;
+}
+.icon-back {
+    
+  background-image: url("../assets/Icon/list-icon.png");
+  background-position: -162px -70px;
+}
+/* icon hàng hoá */
+.icon-stock {
+  background-image: url("../assets/Icon/slibarmenu.png");
+  background-position: 0 -350px;
+}
+
+.avatar-default {
+  background-image: url("../assets/Icon/avatar-default.png");
+}
+.icon-arrow-down {
+  background-image: url("../assets/Icon/arrow-down-line.png");
+  width: 10px !important;
+  height: 4px !important;
+}
+.icon-support {
+  background: #2b3173 url("../assets/Icon/misasupport_1.png");
+}
+.icon-notify {
+  background: url("../assets/Icon/notify-18.png");
+}
+.icon-help {
+  background: url("../assets/Icon/icon_help_18.png");
+}
+
+.icon-plus-white {
+  background: url("../assets/Icon/common-icon.png");
+  background-position: -1px -127px;
+}
+.icon-duplicate {
+  background: url("../assets/Icon/common-icon.png");
+  background-position: -976px -127px;
+}
+.icon-duplicate-black {
+  background: url("../assets/Icon/common-icon.png");
+  background-position: -952px -127px;
+}
+.icon-edit {
+  background: url("../assets/Icon/common-icon.png");
+  background-position: -77px -203px;
+}
+.icon-delete {
+  background: url("../assets/Icon/common-icon.png");
+  background-position: -1076px -127px;
+}
+.icon-reload-white {
+  background: url("../assets/Icon/common-icon.png");
+  background-position: -876px -127px;
+}
+
+.icon-nextpage {
+  background: url("../assets/Icon/common-icon.png");
+  background-position: -750px -124px;
+}
+.icon-double-nextpage {
+  background: url("../assets/Icon/common-icon.png");
+  background-position: -799px -124px;
+}
+.icon-reload {
+  background: url("../assets/Icon/common-icon.png");
+  background-position: -850px -124px;
+}
+.icon-double-prepage {
+  background: url("../assets/Icon/common-icon.png");
+  background-position: -650px -124px;
+}
+.icon-prepage {
+  background: url("../assets/Icon/common-icon.png");
+  background-position: -700px -124px;
+}
+.icon-x {
+  background: url("../assets/Icon/common-icon.png");
+  background-position: -1127px -127px;
+}
+.icon-save {
+  background: url("../assets/Icon/common-icon.png");
+  background-position: -327px -127px !important;
+}
+.icon-plus {
+  background: url("../assets/Icon/common-icon.png");
+  background-position: -26px -127px !important;
+}
+.icon-x {
+  background: url("../assets/Icon/common-icon.png");
+  background-position: -252px -127px !important;
+}
+.m-icon-help {
+  background: url("../assets/Icon/icon-popup.png");
+  background-position: -165px -2px !important;
+}
+.icon-delete-white {
+  background: url("../assets/Icon/delete-white.png");
+  background-position: 6px 0px !important;
+  background-color: #df4646;
+}
+/* icon ! */
+.icon-exclamation {
+  background: url("../assets/Icon/exclamation.png");
+}
+.icon-arrow-down-white {
+  background: url("../assets/Icon/arrow-down-white.png");
+}
+.icon-question {
+  background: url("../assets/Icon/common-icon.png");
+  background-position: -177px -177px !important;
+}
+.icon-add {
+  background: url("../assets/Icon/icon-add.png");
+}

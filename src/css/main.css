@@ -1,0 +1,25 @@
+body {
+    margin: 0;
+    color: #000000;
+    font-size: 13px;
+    font-family: GoogleSans-Regular;
+    overflow: hidden;
+}
+.d-text {
+    padding: 0 5px;
+}
+/* 
+=
+::-webkit-scrollbar { 
+    height: 5px;
+    width: 5px;
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #bbbbbb;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #808080;
+} */
