@@ -114,6 +114,9 @@ export default {
           this.$store.commit("setLoadingStatus", false);
         });
     },
+    recoverPassword() {
+      
+    }
   },
 };
 </script>

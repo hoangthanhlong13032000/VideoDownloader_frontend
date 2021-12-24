@@ -14,7 +14,7 @@
     <!--avatar, thông báo-->
     <div class="header-right">
       <div class="account-area">
-        <div class="d-icon avatar-default"></div>
+        <div class="d-icon avatar-default" v-on:click="changeProfile()"></div>
         <div class="account-name">{{ email }}</div>
         <router-link v-show="!email" to="/login">
           Sign In
@@ -165,10 +165,13 @@ export default {
   },
   methods: {
     signOut() {
-      console.log("signOut");
       Auth.dispatch("signOut");
       this.$router.push("/login");
     },
+    changeProfile() {
+      // Auth.dispatch("signOut");
+      this.$router.push("/profile");
+    }
   },
   computed: {
     email() {

@@ -12,6 +12,8 @@ import Trending from "../views/Trending.vue";
 import Music from "../views/Music.vue";
 import Gaming from "../views/Gaming.vue";
 import Movie from "../views/Movie.vue";
+import Profile from "../views/Profile.vue";
+
 
 import { Auth } from "../store/auth";
 
@@ -87,6 +89,14 @@ const routes: Array<RouteConfig> = [
     path: "/facebook",
     name: "Facebook",
     component: Facebook,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: Profile,
     meta: {
       requiresAuth: true,
     },

@@ -1,7 +1,8 @@
 <template>
   <div class="w-full h-full flex items-center justify-center bg-gray-50">
-    <div class="sm:w-1/2 xl:w-1/3">
+    <div class="sm:w-1/2 xl:w-1/2">
       <div
+        v-if="!isSentEmail"
         class="border-teal p-8 border-t-12 mb-6 rounded-lg shadow-lg bg-white "
       >
         <div class="mb-5">
@@ -21,7 +22,11 @@
           />
         </div>
         <div class="flex gap-2" tabindex="0">
-          <a href="#" class="btn-primary-outline d-height bg-indigo-600">
+          <a
+            href="#"
+            class="btn-primary-outline d-height bg-indigo-600"
+            v-on:click="recover()"
+          >
             <span class="text-white">Search</span>
           </a>
 
@@ -30,11 +35,15 @@
           </router-link>
         </div>
       </div>
+      <router-link to="/login" v-if="isSentEmail">
+        <div class="">please check your email.</div>
+      </router-link>
     </div>
   </div>
 </template>
 
 <script>
+import { Auth } from "../store/auth";
 export default {
   name: "Login",
   components: {},
@@ -42,14 +51,22 @@ export default {
     return {
       email: "",
       password: "",
-      show: false,
+      isSentEmail: false,
     };
   },
   methods: {
-    async handleLogin() {
-      console.log("??");
+    recover() {
+      Auth.dispatch("recover", this.email).then((res) => {
+        if (res.isSuccess) {
+          this.isSentEmail = true;
+        } else {
+          this.$store.commit("handleError", "");
+        }
+      });
     },
-    handleSignup() {},
+  },
+  created: function() {
+    this.isSentEmail = false;
   },
 };
 </script>

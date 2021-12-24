@@ -5,8 +5,8 @@ import Video from "@/model/video";
 import Details from "@/model/details";
 import VideoPreview from "@/model/video-preview";
 
-// const api_v1 = "https://getvideo-api.vietlach.vn/api/v1";
-const api_v1 = "http://localhost:3333";
+const api_v1 = "https://getvideo-api.vietlach.vn/api/v1";
+// const api_v1 = "http://localhost:3333";
 
 function isHttpRequest(text) {
   const regex = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
@@ -60,7 +60,7 @@ export default new Vuex.Store({
     },
     setReloadPage(state, status) {
       state.reloadPage = status;
-    }
+    },
   },
   actions: {
     getVideos(context, textSearch) {
@@ -78,13 +78,18 @@ export default new Vuex.Store({
           if (res && res.data && res.data.data) {
             const data = res.data.data;
             if (data.status == 1) {
-              context.commit("setlistVideo", [...data.videos, ...data.video_only, ...data.audio_only]);
+              context.commit("setlistVideo", [
+                ...data.videos,
+                ...data.video_only,
+                ...data.audio_only,
+              ]);
               context.commit("setVideoDetail", data.details);
-              if (data.recommends.length) context.commit("setListPreview", data.recommends);
+              if (data.recommends.length)
+                context.commit("setListPreview", data.recommends);
             }
           }
         })
-        .catch(function () {
+        .catch(function() {
           context.commit("handleError", "Can't find video.");
         })
         .finally(() => {
@@ -99,13 +104,18 @@ export default new Vuex.Store({
           if (res && res.data && res.data.data) {
             const data = res.data.data;
             if (data.status == 1) {
-              context.commit("setlistVideo", [...data.videos, ...data.video_only, ...data.audio_only]);
+              context.commit("setlistVideo", [
+                ...data.videos,
+                ...data.video_only,
+                ...data.audio_only,
+              ]);
               context.commit("setVideoDetail", data.details);
-              if (data.recommends.length) context.commit("setListPreview", data.recommends);
+              if (data.recommends.length)
+                context.commit("setListPreview", data.recommends);
             }
           }
         })
-        .catch(function () {
+        .catch(function() {
           context.commit("handleError", "Can't find video.");
         })
         .finally(() => {
@@ -123,7 +133,7 @@ export default new Vuex.Store({
             context.commit("setListPreview", res.data.data || []);
           }
         })
-        .catch(function () {
+        .catch(function() {
           context.commit("handleError", "Can't find video.");
         })
         .finally(() => {
@@ -131,7 +141,7 @@ export default new Vuex.Store({
           context.commit("setLoadingStatus", false);
         });
     },
-    async trendingVideo(context, videoType="trending") {
+    async trendingVideo(context, videoType = "trending") {
       // videoType = "trending", "music", "movie", "gaming"
       await axios
         .get(`${api_v1}/api/search/youtube/${videoType}`)
@@ -142,7 +152,7 @@ export default new Vuex.Store({
             context.commit("setListPreview", res.data.data || []);
           }
         })
-        .catch(function () {
+        .catch(function() {
           context.commit("handleError", "Can't find video.");
         })
         .finally(() => {
@@ -158,9 +168,11 @@ export default new Vuex.Store({
     getFitVideo(state) {
       const index = Number(state.quality?.split(" - ")?.[0]) || 0;
       const fitVideo = state.listVideo[index];
-      if(fitVideo) {
-        const thumbnails = state.videoDetails['thumbnails'] || [];
-        fitVideo['thumbnail'] = thumbnails[thumbnails.length - 1] || {url: ""};
+      if (fitVideo) {
+        const thumbnails = state.videoDetails["thumbnails"] || [];
+        fitVideo["thumbnail"] = thumbnails[thumbnails.length - 1] || {
+          url: "",
+        };
       }
       return fitVideo;
     },
@@ -199,7 +211,7 @@ export default new Vuex.Store({
     },
     isReloadPage(state) {
       return state.reloadPage;
-    }
+    },
   },
 
   modules: {},
