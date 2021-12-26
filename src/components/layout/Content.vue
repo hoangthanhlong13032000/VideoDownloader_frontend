@@ -1,6 +1,6 @@
 <template>
   <div class="w-100 h-100 main-content p-3 flex bg-gray-50">
-    <div class="w-100 h-100 main-container">
+    <div class="w-100 h-100 main-container" ref="container">
       <div v-if="selectedVideo">
         <div class="video-frame">
           <video
@@ -45,7 +45,7 @@
               <div class="content-right">
                 <div class="title-1">
                   {{ detail.channel.title }}
-                  <br>
+                  <br />
                   {{ detail.title }}
                 </div>
               </div>
@@ -55,8 +55,23 @@
               <span v-if="detail.publishDate"> - {{ detail.publishDate }}</span>
             </div>
           </div>
-          <div style="white-space: pre-line" class="description">
-            {{ detail.description }}
+          <div class="description">
+            <div
+              style="white-space: pre-line"
+              v-bind:class="{ 'text-ellipsis': showMore }"
+            >
+              {{ detail.description }}
+            </div>
+            <div
+              v-on:click="showMore = !showMore"
+              class="cursor-pointer text-gray-500"
+              style="font-weight: 500;"
+              v-if="
+                detail.description && this.countLine(detail.description) > 4
+              "
+            >
+              {{ showMore ? "SHOW MORE" : "SHOW LESS" }}
+            </div>
           </div>
         </div>
       </div>
@@ -99,25 +114,24 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </template>
 <style scoped></style>
 <script>
-
 import { mapGetters } from "vuex";
 import { Auth } from "../../store/auth.ts";
 
 export default {
   name: "Content",
   components: {},
-  data: function () {
+  data: function() {
     return {
       mainVideoUrl: "",
       qualify: [],
       selectedQuality: null,
       selectedUrl: null,
+      showMore: true,
     };
   },
   methods: {
@@ -150,6 +164,11 @@ export default {
         }
       });
     },
+    countLine(str) {
+      if (str) {
+        return str.split(/\r\n|\r|\n/).length;
+      } else return -1;
+    },
   },
   computed: {
     ...mapGetters({
@@ -158,10 +177,10 @@ export default {
       detail: "getVideoDetail",
       videoQuality: "getVideoQuality",
       listItem: "listItem",
-      reloadPage: "isReloadPage"
+      reloadPage: "isReloadPage",
     }),
   },
-  created: function () {
+  created: function() {
     if (this.reloadPage) {
       this.$store.commit("setLoadingStatus", true);
       this.$store.dispatch("searchVideo", "").then(() => {
@@ -170,9 +189,15 @@ export default {
       this.$store.commit("setReloadPage", false);
     }
   },
+  mounted: function() {},
   watch: {
     videoQuality() {
-      this.selectedQuality = this.videoQuality[0];
+      if (this.videoQuality && this.videoQuality.length > 0) {
+        this.selectedQuality = this.videoQuality[0];
+      }
+    },
+    selectedVideo() {
+      this.$refs.container.scrollTo(0, 0);
     },
   },
 };
@@ -198,6 +223,12 @@ export default {
         width: 100%;
         display: flex;
         align-items: center;
+      }
+      .description {
+        .text-ellipsis {
+          -webkit-line-clamp: 4; /* number of lines to show */
+          line-clamp: 4;
+        }
       }
     }
     .video-frame {

@@ -2,21 +2,22 @@
   <v-app>
     <div class="main-view">
       <v-alert type="success" dense :value="isSuccess">
-        {{message || 'success.'}}
+        {{ message || "success." }}
       </v-alert>
       <v-alert type="error" dense :value="isError">
-        {{message || 'An error occurred, please try again later.'}}
-        
+        {{ message || "An error occurred, please try again later." }}
       </v-alert>
       <div class="main-view-container">
-        <Loader v-if="loading" />
         <Menu />
         <div class="flex flex-column" style="flex: 1;">
           <Header />
           <!-- <Footer /> -->
           <!-- <Content /> -->
           <!-- <Category /> -->
-          <router-view />
+          <div class="content">
+            <Loader v-if="loading" class="mask-load" />
+            <router-view />
+          </div>
         </div>
       </div>
     </div>
@@ -28,7 +29,7 @@ import Vue from "vue";
 import Content from "./components/layout/Content.vue";
 import Header from "./components/layout/Header.vue";
 import Menu from "./components/layout/Menu.vue";
-import Loader from "./components/base/loading.vue";
+import Loader from "./components/base/loader.vue";
 import { mapGetters } from "vuex";
 
 import "./css/icon.css";
@@ -51,7 +52,7 @@ export default Vue.extend({
       isError: "isError",
       isSuccess: "isSuccess",
       loading: "getLoadingStatus",
-      message: "message"
+      message: "message",
     }),
   },
   watch: {
@@ -64,10 +65,11 @@ export default Vue.extend({
       setTimeout(() => {
         this.$store.commit("setSuccessStatus", false);
       }, 3000);
-    }
+    },
   },
 });
 </script>
+
 <style lang="scss" scoped>
 .main-view {
   display: flex;
@@ -77,6 +79,10 @@ export default Vue.extend({
   .main-view-container {
     display: flex;
     flex: 1;
+    .content {
+      position: relative;
+      min-height: calc(100vh - 60px);
+    }
   }
 }
 </style>

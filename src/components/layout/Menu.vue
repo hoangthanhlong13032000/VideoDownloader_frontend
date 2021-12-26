@@ -35,19 +35,35 @@
         v-on:click.native="selectMenu(item)"
         v-bind:class="{ 'menu-active': item.id == selectedMenu }"
       >
-        <div class="d-icon" :class="item.icon"></div>
-        <div class="nav-item-text item-content">{{ item.name }}</div>
+        <div class="menu-item">
+          <div class="d-icon" :class="item.icon"></div>
+          <div class="nav-item-text item-content">{{ item.name }}</div>
+          <div v-if="item.subLinks" v-on:click.prevent="toggleSubmenu(item.id)">
+            <div class="d-icon icon-arrow-down p-3 ml-2"></div>
+          </div>
+        </div>
+        <div class="sub-menu d-none" :id="'subMenu' + item.id">
+          <router-link
+            v-for="submenu in item.subLinks"
+            :key="submenu.id"
+            :to="submenu.route"
+            class="menu-item sub-menu-item"
+          >
+            <div class="d-icon" :class="submenu.icon"></div>
+            <div class="nav-item-text item-content">{{ submenu.name }}</div>
+          </router-link>
+        </div>
       </router-link>
     </div>
   </div>
 </template>
 
 <script>
-
 export default {
   name: "Menu",
   data: function() {
     return {
+      drawer: true,
       menuList: [
         {
           name: "Home",
@@ -60,42 +76,45 @@ export default {
           route: "/category",
           id: 1,
           icon: "icon-earth",
+          subLinks: [
+            {
+              name: "Youtube",
+              route: "/youtube",
+              id: 2,
+              icon: "icon-youtube",
+            },
+            {
+              name: "Facebook",
+              route: "/facebook",
+              id: 3,
+              icon: "icon-facebook",
+            },
+            {
+              name: "TikTok",
+              route: "/tiktok",
+              id: 4,
+              icon: "icon-heart",
+            },
+          ],
         },
-        {
-          name: "Youtube",
-          route: "/youtube",
-          id: 2,
-          icon: "icon-heart",
-        },
-        {
-          name: "Facebook",
-          route: "/facebook",
-          id: 3,
-          icon: "icon-setting",
-        },
-        {
-          name: "TikTok",
-          route: "/tiktok",
-          id: 4,
-          icon: "icon-back",
-        },
+
         {
           name: "Trending",
           route: "/trending",
           id: 5,
-          icon: "icon-back",
+          icon: "icon-trending",
         },
         {
           name: "Music",
           route: "/music",
           id: 6,
-          icon: "icon-back",
+          icon: "icon-music", 
         },
         {
           name: "Movie",
           route: "/movie",
           id: 7,
-          icon: "icon-back",
+          icon: "icon-movie",
         },
         {
           name: "Gaming",
@@ -111,9 +130,23 @@ export default {
   methods: {
     selectMenu(item) {
       this.selectedMenu = item.id;
+      // if (item.subLinks) {
+      //   this.toggleSubmenu(item.id);
+      // }
     },
     resizeMenu() {
       this.isMinimize = !this.isMinimize;
+    },
+    toggleSubmenu(id) {
+      let ele = document.getElementById("subMenu" + id);
+      if (ele) {
+        let isHide = ele.classList?.contains("d-none");
+        if (isHide) {
+          ele.classList.remove("d-none");
+        } else {
+          ele.classList.add("d-none");
+        }
+      }
     },
   },
   mounted() {
@@ -146,7 +179,7 @@ export default {
 .d-icon {
   background-size: unset;
   width: 25px;
-  height: 35px;
+  height: 30px;
   margin-right: 5px;
 }
 /*thanh menu*/
@@ -156,6 +189,22 @@ export default {
   min-width: 180px;
   max-width: 180px;
   height: 100%;
+  .menu-item {
+    height: 55px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+  }
+  .sub-menu {
+    display: flex;
+    flex-direction: column;
+    .sub-menu-item {
+      padding-left: 25px;
+    }
+    .menu-item:hover {
+      padding-left: 20px !important;
+    }
+  }
 }
 .minimize {
   width: 50px !important;
@@ -176,17 +225,17 @@ export default {
   font-weight: 600;
   color: black;
 }
-/*logo cukcuk*/
+
 .menu-side-bar .logo-site {
   height: 60px;
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
   cursor: pointer;
   /* background-color: #1e235a; */
   /* color: #ffffff; */
   color: black;
+  padding: 10px;
   font-weight: 600;
 }
 
@@ -210,24 +259,21 @@ export default {
 
 .menu-side-bar .nav-content .nav-item {
   width: 100%;
-  height: 55px;
   font-weight: 300;
+  // height: 55px;
+  flex-direction: column;
   display: flex;
-  padding: 20px;
-  align-items: center;
+  // align-items: center;
+  justify-content: center;
   color: #aaacc7;
   cursor: pointer;
   line-height: 17px;
   text-decoration: none;
 }
 
-.nav-item:hover {
-  /* color: #ffffff !important; */
-  /* background-color: #1e235a !important; */
-}
-.menu-side-bar .nav-content .nav-item:hover {
+.menu-side-bar .nav-content .nav-item .menu-item:hover {
   background-color: #f3f4f6;
-  padding-left: 23px;
+  padding-left: 5px;
 }
 
 .menu-side-bar .nav-content .nav-item:active {

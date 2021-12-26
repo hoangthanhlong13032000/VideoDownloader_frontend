@@ -1,5 +1,5 @@
 <template>
-  <div class="mask-loader">
+  <div class="mask-loader bg-gray-50">
     <v-progress-circular
       indeterminate
       color="primary"
@@ -24,11 +24,11 @@ export default {
   bottom: 0;
   right: 0;
   z-index: 1000;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #000000bb;
+  // background-color: #000000bb;
 }
 </style>

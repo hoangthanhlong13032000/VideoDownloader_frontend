@@ -28,7 +28,6 @@
                 {{ item.channel.title }} - {{ item.stats.viewCount }} -
                 {{ item.publishedTime }}
               </div>
-              <br />
               <div class="sub-title text-ellipsis">
                 {{ item.description }}
               </div>
@@ -63,7 +62,7 @@ export default {
       listItem: "listItem",
     }),
   },
-  created: function () {
+  created: function() {
     this.$store.commit("setLoadingStatus", true);
     this.$store.dispatch("trendingVideo", "trending").then(() => {
       this.$store.commit("setLoadingStatus", false);

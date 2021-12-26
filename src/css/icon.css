@@ -48,15 +48,15 @@
 }
 .icon-earth {
   background-image: url("../assets/Icon/list-icon.png");
-  background-position: -8px -5px;
+  background-position: -8px -9px;
 }
 .icon-heart {
   background-image: url("../assets/Icon/list-icon.png");
-  background-position: -70px -35px;
+  background-position: -70px -39px;
 }
 .icon-setting {
   background-image: url("../assets/Icon/list-icon.png");
-  background-position: -162px -162px;
+  background-position: -162px -166px;
 }
 /* icon danh mục */
 .icon-category {
@@ -64,16 +64,18 @@
   background-position: 0 -233px;
 }
 .icon-back {
-    
   background-image: url("../assets/Icon/list-icon.png");
-  background-position: -162px -70px;
+  background-position: -162px -72px;
 }
 /* icon hàng hoá */
 .icon-stock {
   background-image: url("../assets/Icon/slibarmenu.png");
   background-position: 0 -350px;
 }
-
+.icon-trending {
+  background-image: url("../assets/Icon/list-icon.png");
+  background-position: -8px -166px;
+}
 .avatar-default {
   background-image: url("../assets/Icon/avatar-default.png");
 }
@@ -175,4 +177,20 @@
 }
 .icon-add {
   background: url("../assets/Icon/icon-add.png");
+}
+.icon-youtube {
+  background: url("../assets/Icon/social-media.png");
+  background-position: -10px -64px !important;
+}
+.icon-facebook {
+  background: url("../assets/Icon/social-media.png");
+  background-position: -10px -10px !important;
+}
+.icon-movie {
+  background: url("../assets/Icon/media.png");
+  background-position: -20px -116px !important;
+}
+.icon-music {
+  background: url("../assets/Icon/media.png");
+  background-position: -54px -144px !important;
 }

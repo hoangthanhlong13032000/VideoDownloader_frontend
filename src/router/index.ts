@@ -14,7 +14,6 @@ import Gaming from "../views/Gaming.vue";
 import Movie from "../views/Movie.vue";
 import Profile from "../views/Profile.vue";
 
-
 import { Auth } from "../store/auth";
 
 Vue.use(VueRouter);
@@ -42,7 +41,7 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: "/category",
-    name: "Category",
+    name: "All Category",
     component: Category,
     meta: {
       requiresAuth: true,
@@ -83,7 +82,6 @@ const routes: Array<RouteConfig> = [
     meta: {
       requiresAuth: true,
     },
-
   },
   {
     path: "/facebook",

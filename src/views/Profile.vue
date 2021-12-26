@@ -84,10 +84,11 @@ export default {
         let me = this;
         Auth.dispatch("updateProfile", {
           email: me.email,
-          newPassword: me.password,
+          password: me.newPassword,
         }).then((res) => {
           if (res && res.isSuccess) {
             this.$store.commit("handleSuccess", "save success.");
+            this.$router.push("/Login");
           } else {
             this.$store.commit("handleError", res.message);
           }

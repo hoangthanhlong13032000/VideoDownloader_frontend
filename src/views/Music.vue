@@ -1,7 +1,7 @@
 <template>
   <div class="main-view">
     <div class="w-100 h-100 main-content p-3 flex bg-gray-50">
-      <div class="w-100 h-100 main-container">
+      <div class="w-100 h-100 main-container" id="musicContainer">
         <div class="item w-100 h-100 cursor-pointer" v-for="item in listItem">
           <div
             class="w-100 h-100 cursor-pointer d-flex"
@@ -28,12 +28,18 @@
                 {{ item.channel.title }} - {{ item.stats.viewCount }} -
                 {{ item.publishedTime }}
               </div>
-              <br />
-              <div class="sub-title text-ellipsis">
+              <div class="text-ellipsis">
                 {{ item.description }}
               </div>
             </div>
           </div>
+        </div>
+        <div class="music-spin d-none" ref="musicSpin">
+          <v-progress-circular
+            indeterminate
+            color="primary"
+            class="spin"
+          ></v-progress-circular>
         </div>
       </div>
     </div>
@@ -44,7 +50,7 @@
 import { mapGetters } from "vuex";
 
 export default {
-  name: "Category",
+  name: "Music",
   components: {},
   methods: {
     showVideo(item) {
@@ -57,18 +63,33 @@ export default {
         });
       }
     },
+    scroll() {
+      let el = document.getElementById("musicContainer");
+      let me = this;
+      el.onscroll = () => {
+        me.$refs.musicSpin.classList.remove("d-none");
+        if (el.offsetHeight + el.scrollTop >= el.scrollHeight) {
+          this.$store.dispatch("loadMoreTrendingVideo", "music").then(() => {
+            me.$refs.musicSpin.classList.add("d-none");
+          });
+        }
+      };
+    },
   },
   computed: {
     ...mapGetters({
       listItem: "listItem",
     }),
   },
-  created: function () {
+  created: function() {
     this.$store.commit("setLoadingStatus", true);
     this.$store.dispatch("trendingVideo", "music").then(() => {
       this.$store.commit("setLoadingStatus", false);
     });
     this.$store.commit("setReloadPage", true);
+  },
+  mounted: function() {
+    this.scroll();
   },
 };
 </script>
@@ -121,7 +142,16 @@ export default {
           line-clamp: 2;
           -webkit-box-orient: vertical;
         }
+        .sub-title {
+          -webkit-line-clamp: 1 !important; /* number of lines to show */
+          line-clamp: 1 !important;
+        }
       }
+    }
+    .music-spin {
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 }

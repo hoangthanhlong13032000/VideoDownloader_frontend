@@ -55,6 +55,9 @@
       width: 100%;
       height: 100%;
       padding: 5px 10px;
+      &:focus {
+        border-color: #2b3173;
+      }
     }
     .button-search {
       background-color: #d3d3d3;
@@ -92,7 +95,10 @@ export default {
     onSearching(e) {
       this.$store.dispatch("getVideos", this.textSearch);
       this.$store.commit("setReloadPage", false);
-      if (this.$router.path != '/' && this.$router?.history?.current?.path != '/') {
+      if (
+        this.$router.path != "/" &&
+        this.$router?.history?.current?.path != "/"
+      ) {
         this.$router.push("/");
       }
     },

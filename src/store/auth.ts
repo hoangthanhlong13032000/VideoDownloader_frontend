@@ -212,12 +212,13 @@ export const Auth = new Vuex.Store({
       };
       const token = context.state.token || getCookie("token");
       await axios
-        .post(`${auth_v1}/user`, params, {
+        .put(`${auth_v1}/user`, params, {
           headers: { Authorization: "Bearer " + token },
         })
         .then((result) => {
           res.isSuccess = true;
-          context.commit("setUser", { email, password });
+          // context.commit("setUser", { email, password });
+          context.dispatch("signOut");
         })
         .catch(function(err) {
           res.isSuccess = false;

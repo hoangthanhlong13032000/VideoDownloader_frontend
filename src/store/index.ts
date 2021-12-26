@@ -38,6 +38,9 @@ export default new Vuex.Store({
     setListPreview(state, list) {
       state.listItem = list;
     },
+    addListPreview(state, list) {
+      state.listItem.concat(list);
+    },
     setLoadingStatus(state, isLoading) {
       state.loading = isLoading;
     },
@@ -159,6 +162,20 @@ export default new Vuex.Store({
           context.commit("setSearchingStatus", false);
           context.commit("setLoadingStatus", false);
         });
+    },
+    //Lấy thêm video
+    async loadMoreTrendingVideo(context, videoType = "trending") {
+      // videoType = "trending", "music", "movie", "gaming"
+      // await axios
+      //   .get(`${api_v1}/api/search/youtube/${videoType}`)
+      //   .then((res: any) => {
+      //     if (res && res.data && res.data.status == 1) {
+      //       context.commit("addListPreview", res.data.data || []);
+      //     }
+      //   })
+      //   .catch(function() {
+      //     context.commit("handleError", "Can't find video.");
+      //   });
     },
   },
   getters: {

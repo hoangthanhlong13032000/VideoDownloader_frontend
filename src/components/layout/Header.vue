@@ -32,18 +32,15 @@
               <div class="d-icon icon-arrow-down sm-icon"></div>
             </v-btn>
           </template>
-          <v-list>
-            <v-list-item>
+          <v-list v-show="email">
+            <v-list-item v-on:click="changeProfile()">
               <v-list-item-title>Change password</v-list-item-title>
             </v-list-item>
-            <v-list-item>
-              <v-list-item-title>Consult with the developer</v-list-item-title>
-            </v-list-item>
-            <v-list-item v-show="email">
+            <v-list-item v-on:click="signOut()">
               <v-list-item-title>
                 <!-- <router-link to="/login" v-on:click.native="">
                 </router-link> -->
-                <div v-on:click="signOut()">
+                <div>
                   Sign out
                 </div>
               </v-list-item-title>
@@ -171,7 +168,7 @@ export default {
     changeProfile() {
       // Auth.dispatch("signOut");
       this.$router.push("/profile");
-    }
+    },
   },
   computed: {
     email() {
