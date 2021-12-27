@@ -1,5 +1,5 @@
 <template>
-  <div class="w-100 h-100 main-content p-3 flex bg-gray-50">
+  <div class="w-100 h-100 main-content flex bg-gray-50">
     <div class="w-100 h-100 main-container" ref="container">
       <div v-if="selectedVideo">
         <div class="video-frame">
@@ -15,7 +15,7 @@
           <div class="content-tool-bar my-3">
             <div style="width: 300px; height: 40px">
               <v-select
-                label="Qualify"
+                label="Quality"
                 v-on:change="changeQuality()"
                 v-model="selectedQuality"
                 v-bind:items="videoQuality"
@@ -65,7 +65,7 @@
             <div
               v-on:click="showMore = !showMore"
               class="cursor-pointer text-gray-500"
-              style="font-weight: 500;"
+              style="font-weight: 500"
               v-if="
                 detail.description && this.countLine(detail.description) > 4
               "
@@ -125,7 +125,7 @@ import { Auth } from "../../store/auth.ts";
 export default {
   name: "Content",
   components: {},
-  data: function() {
+  data: function () {
     return {
       mainVideoUrl: "",
       qualify: [],
@@ -180,16 +180,17 @@ export default {
       reloadPage: "isReloadPage",
     }),
   },
-  created: function() {
+  created: function () {
     if (this.reloadPage) {
       this.$store.commit("setLoadingStatus", true);
       this.$store.dispatch("searchVideo", "").then(() => {
         this.$store.commit("setLoadingStatus", false);
       });
       this.$store.commit("setReloadPage", false);
-    }
+    } else if (!this.selectedQuality)
+      this.selectedQuality = this.videoQuality?.[0];
   },
-  mounted: function() {},
+  mounted: function () {},
   watch: {
     videoQuality() {
       if (this.videoQuality && this.videoQuality.length > 0) {

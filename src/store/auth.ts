@@ -5,8 +5,8 @@ import axios from "axios";
 Vue.use(Vuex);
 
 const auth_v1 = "https://getvideo-api.vietlach.vn/auth/v1";
-const api_v1 = "https://getvideo-api.vietlach.vn/api/v1";
-// const api_v1 = "http://localhost:3333";
+// const api_v1 = "https://getvideo-api.vietlach.vn/api/v1";
+const api_v1 = "http://localhost:3333";
 
 //cache
 function setCookie(name, value, exp_days) {

@@ -9,7 +9,7 @@
       </v-alert>
       <div class="main-view-container">
         <Menu />
-        <div class="flex flex-column" style="flex: 1;">
+        <div class="flex flex-column" style="flex: 1">
           <Header />
           <!-- <Footer /> -->
           <!-- <Content /> -->
@@ -56,12 +56,12 @@ export default Vue.extend({
     }),
   },
   watch: {
-    isError: function() {
+    isError: function () {
       setTimeout(() => {
         this.$store.commit("setErrorStatus", false);
       }, 3000);
     },
-    isSuccess: function() {
+    isSuccess: function () {
       setTimeout(() => {
         this.$store.commit("setSuccessStatus", false);
       }, 3000);

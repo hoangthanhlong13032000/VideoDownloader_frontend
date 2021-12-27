@@ -1,6 +1,6 @@
 <template>
   <div class="main-view">
-    <div class="w-100 h-100 main-content p-3 flex bg-gray-50">
+    <div class="w-100 h-100 main-content flex bg-gray-50">
       <div class="w-100 h-100 main-container">
         <div class="item w-100 h-100 cursor-pointer" v-for="item in listItem">
           <div
