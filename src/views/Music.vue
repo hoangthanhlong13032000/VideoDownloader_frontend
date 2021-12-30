@@ -67,12 +67,12 @@ export default {
       let el = document.getElementById("musicContainer");
       let me = this;
       el.onscroll = () => {
-        me.$refs.musicSpin.classList.remove("d-none");
-        if (el.offsetHeight + el.scrollTop >= el.scrollHeight) {
-          this.$store.dispatch("loadMoreTrendingVideo", "music").then(() => {
-            me.$refs.musicSpin.classList.add("d-none");
-          });
-        }
+        // me.$refs.musicSpin.classList.remove("d-none");
+        // if (el.offsetHeight + el.scrollTop >= el.scrollHeight) {
+        //   this.$store.dispatch("loadMoreTrendingVideo", "music").then(() => {
+        //     me.$refs.musicSpin.classList.add("d-none");
+        //   });
+        // }
       };
     },
   },

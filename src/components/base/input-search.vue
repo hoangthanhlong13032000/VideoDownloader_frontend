@@ -3,14 +3,27 @@
     <div class="input-search-content">
       <input
         type="text"
-        placeholder="Paste your video link here"
+        placeholder="Paste your video link here or text to search"
         v-model="textSearch"
-        v-on:keyup.enter="onSearching()"
-        v-on:keydown="onTyping()"
+        v-on:keydown.enter="onSearching()"
+        v-on:blur="onBlur()"
+        v-on:keydown="onTyping($event)"
       />
+      <div class="input-search-suggest" ref="inputSuggest">
+        <div
+          class="item text-ellipsis"
+          v-for="(sg, i) in listSuggest"
+          @click="onSearching(sg)"
+          :key="i"
+          :class="{ focus: sgIndx === i }"
+        >
+          {{ sg }}
+        </div>
+      </div>
       <button class="button-clear" @click="clear">
-        x
+        <div class="d-icon icon-x"></div>
       </button>
+
       <button
         class="button-search"
         aria-label="Search"
@@ -45,11 +58,6 @@
       indeterminate
       color="#2b3173"
     ></v-progress-linear>
-    <div class="input-search-suggest">
-      <div class="item" v-for="(sg, i) in listSuggest" @click="onSearching(sg)" :key="i">
-        {{ sg }}
-      </div>
-    </div>
   </div>
 </template>
 <style lang="scss" scoped>
@@ -69,18 +77,28 @@
       outline: none;
       width: 100%;
       height: 100%;
-      padding: 5px 10px;
+      padding: 5px 30px 5px 10px;
+      min-width: 200px;
       &:focus {
         border-color: #2b3173;
       }
-    };
+    }
+    input:focus + .input-search-suggest {
+      display: block !important;
+    }
+    input:placeholder-shown {
+      text-overflow: ellipsis;
+    }
+
     .button-search {
       background-color: #d3d3d3;
       width: 64px;
+      min-width: 64px;
       height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
+
       .icon-search {
         width: 24px;
         height: 24px;
@@ -90,10 +108,16 @@
       position: absolute;
       height: 25px;
       width: 25px;
-      right: 63px;
-      top: 15%;
+      right: 70px;
+      top: 6px;
       text-align: center;
       border-radius: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .icon-x {
+        background-position: -250px -125px !important;
+      }
       &:hover {
         background-color: lightgray;
       }
@@ -101,18 +125,26 @@
   }
   .input-search-suggest {
     position: absolute;
-    display: block;
+    display: none;
     box-shadow: 0 4px 8px 0 rgba(7, 6, 6, 0.3);
     background-color: white;
+    top: 36px;
     cursor: pointer;
     z-index: 10;
-    width: calc(100% - 62px);
+    width: calc(100% - 64px);
+    min-width: 200px;
     padding: 5px;
+    &:active {
+      display: block !important;
+    }
     .item {
       padding: 5px;
       &:hover {
         background-color: #d3d3d3;
       }
+    }
+    .focus {
+      background-color: #d3d3d3;
     }
   }
 }
@@ -125,35 +157,74 @@ export default {
   name: "InputSearch",
 
   components: {},
-  data: function () {
+  data: function() {
     return {
-      textSearch: ""
+      textSearch: "",
+      sgIndx: null,
     };
   },
   props: ["value"],
   methods: {
     onSearching(text) {
-      this.textSearch = text || this.textSearch;
-      this.$store.dispatch("getVideos", this.textSearch);
-      this.$store.commit("setReloadPage", false);
-      if (
-        this.$router.path != "/" &&
-        this.$router?.history?.current?.path != "/"
-      ) {
-        this.$router.push("/");
+      if (text) {
+        this.textSearch = text;
+      }
+      if (this.textSearch) {
+        this.$store.dispatch("getVideos", this.textSearch);
+        this.$store.commit("setReloadPage", false);
+        if (
+          this.$router.path != "/" &&
+          this.$router?.history?.current?.path != "/"
+        ) {
+          this.$router.push("/");
+        }
+        this.$refs.inputSuggest.style.display = "none";
       }
     },
-    async onTyping() {
-      const self = this;
-      clearTimeout(timer);
-      timer = setTimeout(function () {
-        self.$store.dispatch("getSuggests", self.textSearch);
-      }, 300);
+    async onTyping(event) {
+      switch (event.keyCode) {
+        case 38:
+          // arrow up
+          if (this.listSuggest && this.listSuggest.length > 0) {
+            if (this.sgIndx == null) {
+              this.sgIndx = 0;
+            } else if (this.sgIndx > 0) {
+              this.sgIndx--;
+            }
+            this.textSearch = this.listSuggest[this.sgIndx];
+          }
+          break;
+        case 40:
+          // arrow down
+          if (this.listSuggest && this.listSuggest.length > 0) {
+            if (
+              this.sgIndx == null ||
+              this.sgIndx == this.listSuggest.length - 1
+            ) {
+              this.sgIndx = 0;
+            } else {
+              this.sgIndx++;
+            }
+            this.textSearch = this.listSuggest[this.sgIndx];
+          }
+          break;
+        default:
+          this.sgIndx = null;
+          const self = this;
+          clearTimeout(timer);
+          timer = setTimeout(function() {
+            self.$store.dispatch("getSuggests", self.textSearch);
+          }, 300);
+          break;
+      }
     },
     clear() {
       this.textSearch = "";
-      this.onTyping();
-    }
+      this.onTyping({});
+    },
+    onBlur() {
+      // this.sgIndx = null;
+    },
   },
   watch: {
     value() {
