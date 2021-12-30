@@ -8,6 +8,7 @@
             :src="selectedVideo.url || ''"
             style="width: 100%; height: 70vh"
             controls
+			autoplay
             :poster="selectedVideo.thumbnail.url"
           ></video>
         </div>
@@ -85,7 +86,7 @@
         >
           <img
             class="item-img"
-            :src="(item.thumbnails[1] || item.thumbnails[0]).url"
+            :src="(item.thumbnails[item.thumbnails.length - 1]).url"
             alt="video preview"
           />
           <div class="content flex mt-1">

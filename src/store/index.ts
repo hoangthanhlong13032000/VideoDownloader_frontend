@@ -5,8 +5,8 @@ import Video from "@/model/video";
 import Details from "@/model/details";
 import VideoPreview from "@/model/video-preview";
 
-// const api_v1 = "https://getvideo-api.vietlach.vn/api/v1";
-const api_v1 = "http://localhost:3333";
+const api_v1 = "https://getvideo-api.vietlach.vn/api/v1";
+// const api_v1 = "http://localhost:3333";
 
 function isHttpRequest(text) {
   const regex = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
