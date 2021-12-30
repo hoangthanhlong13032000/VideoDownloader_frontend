@@ -55,7 +55,6 @@
 </template>
 <style scoped></style>
 <script>
-import { mapGetters } from "vuex";
 import { Auth } from "../store/auth.ts";
 export default {
   name: "Facebook",
@@ -124,7 +123,7 @@ export default {
       }
       border-bottom: 1px solid #bbbbbb;
       .item-img {
-        border: 1px solid;
+        border: 1px solid lightgray;
         height: 100%;
         width: 220px;
         min-width: 220px;

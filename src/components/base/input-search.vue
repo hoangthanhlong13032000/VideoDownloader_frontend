@@ -5,12 +5,16 @@
         type="text"
         placeholder="Paste your video link here"
         v-model="textSearch"
-        v-on:keyup.enter="onSearching"
+        v-on:keyup.enter="onSearching()"
+        v-on:keydown="onTyping()"
       />
+      <button class="button-clear" @click="clear">
+        x
+      </button>
       <button
         class="button-search"
         aria-label="Search"
-        v-on:click="onSearching"
+        v-on:click="onSearching()"
       >
         <div class="icon-search">
           <svg
@@ -18,7 +22,12 @@
             preserveAspectRatio="xMidYMid meet"
             focusable="false"
             class="style-scope yt-icon"
-            style="pointer-events: none; display: block; width: 100%; height: 100%;"
+            style="
+              pointer-events: none;
+              display: block;
+              width: 100%;
+              height: 100%;
+            "
           >
             <g class="style-scope yt-icon">
               <path
@@ -31,15 +40,21 @@
       </button>
     </div>
     <v-progress-linear
-      style="margin-top: 4px;"
+      style="margin-top: 4px"
       v-show="isSearching"
       indeterminate
       color="#2b3173"
     ></v-progress-linear>
+    <div class="input-search-suggest">
+      <div class="item" v-for="(sg, i) in listSuggest" @click="onSearching(sg)" :key="i">
+        {{ sg }}
+      </div>
+    </div>
   </div>
 </template>
 <style lang="scss" scoped>
 .input-search-container {
+  position: relative;
   width: 100%;
   margin-left: 16px;
   .input-search-content {
@@ -58,7 +73,7 @@
       &:focus {
         border-color: #2b3173;
       }
-    }
+    };
     .button-search {
       background-color: #d3d3d3;
       width: 64px;
@@ -71,28 +86,54 @@
         height: 24px;
       }
     }
+    .button-clear {
+      position: absolute;
+      height: 25px;
+      width: 25px;
+      right: 63px;
+      top: 15%;
+      text-align: center;
+      border-radius: 13px;
+      &:hover {
+        background-color: lightgray;
+      }
+    }
+  }
+  .input-search-suggest {
+    position: absolute;
+    display: block;
+    box-shadow: 0 4px 8px 0 rgba(7, 6, 6, 0.3);
+    background-color: white;
+    cursor: pointer;
+    z-index: 10;
+    width: calc(100% - 62px);
+    padding: 5px;
+    .item {
+      padding: 5px;
+      &:hover {
+        background-color: #d3d3d3;
+      }
+    }
   }
 }
 </style>
 <script>
 import { mapGetters } from "vuex";
+let timer;
 
 export default {
   name: "InputSearch",
 
   components: {},
-  data: function() {
+  data: function () {
     return {
-      textSearch: "",
+      textSearch: ""
     };
   },
   props: ["value"],
   methods: {
-    /**
-     * Tìm kiếm video
-     * VMHUNG 12/10/2021
-     */
-    onSearching(e) {
+    onSearching(text) {
+      this.textSearch = text || this.textSearch;
       this.$store.dispatch("getVideos", this.textSearch);
       this.$store.commit("setReloadPage", false);
       if (
@@ -102,6 +143,17 @@ export default {
         this.$router.push("/");
       }
     },
+    async onTyping() {
+      const self = this;
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        self.$store.dispatch("getSuggests", self.textSearch);
+      }, 300);
+    },
+    clear() {
+      this.textSearch = "";
+      this.onTyping();
+    }
   },
   watch: {
     value() {
@@ -114,6 +166,7 @@ export default {
   computed: {
     ...mapGetters({
       isSearching: "isSearching",
+      listSuggest: "listSuggest",
     }),
   },
 };

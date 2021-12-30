@@ -12,6 +12,22 @@ function isHttpRequest(text) {
   const regex = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
   return regex.test(text);
 }
+async function saveHistory(textSearch) {
+  if (!textSearch) return;
+
+  const history = JSON.parse(
+    window.localStorage.getItem("histories") || "[]"
+  );
+
+  const index = history.indexOf(textSearch);
+  if (index !== -1) history.splice(index, 1);
+
+  history.unshift(textSearch);
+  while (history.length > 9) history.pop();
+
+  window.localStorage.setItem("histories", JSON.stringify(history));
+}
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -25,6 +41,7 @@ export default new Vuex.Store({
     message: "",
     isSearching: false,
     listItem: Array<VideoPreview>(), // danh sách các video xem trước
+    listSuggest: JSON.parse(window.localStorage.getItem('histories') || "[]"),
     reloadPage: true, // có cần reload lại trang k // tạm thời đang dùng cho màn recommend
   },
   mutations: {
@@ -64,10 +81,14 @@ export default new Vuex.Store({
     setReloadPage(state, status) {
       state.reloadPage = status;
     },
+    setListSuggests(state, list) {
+      if (list.length) state.listSuggest = list;
+    }
   },
   actions: {
     getVideos(context, textSearch) {
       context.commit("setSearchingStatus", true);
+      saveHistory(textSearch)
       if (isHttpRequest(textSearch)) {
         this.dispatch("getVideosByURL", textSearch);
       } else {
@@ -92,7 +113,7 @@ export default new Vuex.Store({
             }
           }
         })
-        .catch(function() {
+        .catch(function () {
           context.commit("handleError", "Can't find video.");
         })
         .finally(() => {
@@ -118,7 +139,7 @@ export default new Vuex.Store({
             }
           }
         })
-        .catch(function() {
+        .catch(function () {
           context.commit("handleError", "Can't find video.");
         })
         .finally(() => {
@@ -136,7 +157,7 @@ export default new Vuex.Store({
             context.commit("setListPreview", res.data.data || []);
           }
         })
-        .catch(function() {
+        .catch(function () {
           context.commit("handleError", "Can't find video.");
         })
         .finally(() => {
@@ -155,7 +176,7 @@ export default new Vuex.Store({
             context.commit("setListPreview", res.data.data || []);
           }
         })
-        .catch(function() {
+        .catch(function () {
           context.commit("handleError", "Can't find video.");
         })
         .finally(() => {
@@ -163,7 +184,6 @@ export default new Vuex.Store({
           context.commit("setLoadingStatus", false);
         });
     },
-    //Lấy thêm video
     async loadMoreTrendingVideo(context, videoType = "trending") {
       // videoType = "trending", "music", "movie", "gaming"
       // await axios
@@ -177,6 +197,17 @@ export default new Vuex.Store({
       //     context.commit("handleError", "Can't find video.");
       //   });
     },
+    async getSuggests(context, textSearch) {
+      if (!textSearch) context.commit("setListSuggests", JSON.parse(window.localStorage.getItem('histories') || "[]"));
+      else await axios
+        .get(`${api_v1}/api/suggest?search_query=${textSearch}`)
+        .then((res: any) => {
+          context.commit("setListSuggests", res.data.data || []);
+        })
+        .catch(function () {
+          context.commit("setListSuggests", []);
+        })
+    }
   },
   getters: {
     listVideo(state) {
@@ -214,6 +245,9 @@ export default new Vuex.Store({
     listItem(state) {
       return state.listItem;
     },
+    listSuggest(state) {
+      return state.listSuggest;
+    },
     isSearching(state) {
       return state.isSearching;
     },
@@ -230,6 +264,5 @@ export default new Vuex.Store({
       return state.reloadPage;
     },
   },
-
   modules: {},
 });

@@ -247,7 +247,7 @@ export default {
         display: flex;
         flex-direction: column;
         .item-img {
-          border: 1px solid;
+          border: 1px solid lightgray;
           min-height: 180px;
           max-height: 180px;
           width: 100%;
