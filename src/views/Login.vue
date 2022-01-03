@@ -61,10 +61,10 @@
 
 <script>
 import { Auth } from "../store/auth.ts";
-import axios from "axios";
+
 export default {
   name: "Login",
-  components: {},
+  
   data() {
     return {
       email: "",
@@ -96,7 +96,6 @@ export default {
       });
     },
     handleSignup() {
-      let me = this;
       this.$store.commit("setLoadingStatus", true);
 
       Auth.dispatch("signUp", { email: this.email, password: this.password })
@@ -115,7 +114,7 @@ export default {
         });
     },
     recoverPassword() {
-      
+      console.log('recover not done');
     }
   },
 };

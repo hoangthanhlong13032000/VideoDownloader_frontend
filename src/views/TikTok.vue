@@ -55,18 +55,12 @@ import { mapGetters } from "vuex";
 import { Auth } from "../store/auth.ts";
 export default {
   name: "TikTok",
-  components: {},
-  data: function() {
-    return {};
-  },
   methods: {
     showVideo(item) {
       if (item && item.id) {
-        this.$store.commit("setLoadingStatus", true);
         this.$store.dispatch("getVideosById", item).then((res) => {
           this.$store.commit("setReloadPage", false);
           this.$router.push("/");
-          this.$store.commit("setLoadingStatus", false);
         });
       }
     },
@@ -80,10 +74,10 @@ export default {
     },
   },
   created: function() {
-    let me = this;
     this.$store.commit("setLoadingStatus", true);
-    Auth.dispatch("getSavedVideos").then((res) => {
+    Auth.dispatch("getSavedVideos").then(() => {
       this.$store.commit("setLoadingStatus", false);
+      this.$store.commit("setReloadPage", true);
     });
   },
 };
@@ -100,7 +94,6 @@ export default {
   }
 }
 .main-content {
-  // background-color: #e5e6eb;
   display: flex;
   max-height: calc(100vh - 60px);
   .main-container {
@@ -130,10 +123,6 @@ export default {
       }
       .content {
         padding: 0 16px 0 16px;
-        .title {
-        }
-        .sub-title {
-        }
         .text-ellipsis {
           overflow: hidden;
           text-overflow: ellipsis;

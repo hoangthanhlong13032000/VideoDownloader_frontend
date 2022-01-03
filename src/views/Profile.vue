@@ -62,7 +62,7 @@ import { Auth } from "../store/auth.ts";
 import axios from "axios";
 export default {
   name: "Login",
-  components: {},
+
   data() {
     return {
       email: "",
@@ -81,11 +81,11 @@ export default {
         this.isAuthFalse = true;
         this.message = "Current pass word not correct";
       } else {
-        let me = this;
-        Auth.dispatch("updateProfile", {
-          email: me.email,
-          password: me.newPassword,
-        }).then((res) => {
+        const newProfile = {
+          email: this.email,
+          password: this.newPassword,
+        };
+        Auth.dispatch("updateProfile", newProfile).then((res) => {
           if (res && res.isSuccess) {
             this.$store.commit("handleSuccess", "save success.");
             this.$router.push("/Login");
@@ -95,7 +95,9 @@ export default {
         });
       }
     },
-    recoverPassword() {},
+    recoverPassword() {
+      console.log('Recover not done');
+    },
   },
 };
 </script>

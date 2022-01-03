@@ -11,9 +11,6 @@
         <Menu />
         <div class="flex flex-column" style="flex: 1">
           <Header />
-          <!-- <Footer /> -->
-          <!-- <Content /> -->
-          <!-- <Category /> -->
           <div class="content">
             <Loader v-if="loading" class="mask-load" />
             <router-view />
@@ -26,7 +23,6 @@
 
 <script lang="ts">
 import Vue from "vue";
-import Content from "./components/layout/Content.vue";
 import Header from "./components/layout/Header.vue";
 import Menu from "./components/layout/Menu.vue";
 import Loader from "./components/base/loader.vue";
@@ -43,10 +39,8 @@ import "./assets/tailwind.css";
 
 export default Vue.extend({
   name: "App",
-  components: { Content, Header, Menu, Loader },
-  data: () => ({
-    //
-  }),
+  components: { Header, Menu, Loader },
+  data: () => ({}),
   computed: {
     ...mapGetters({
       isError: "isError",

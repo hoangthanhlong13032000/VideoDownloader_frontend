@@ -11,9 +11,6 @@
 <script>
 export default {
   name: "Loader",
-  data: function() {
-    return {};
-  },
 };
 </script>
 <style lang="scss" scoped>
@@ -29,6 +26,5 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  // background-color: #000000bb;
 }
 </style>

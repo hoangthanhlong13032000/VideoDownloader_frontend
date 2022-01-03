@@ -2,7 +2,6 @@ import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
-import SignUp from "../views/SignUp.vue";
 import ForgotPassword from "../views/ForgotPassword.vue";
 import Category from "../views/Category.vue";
 import Youtube from "../views/Youtube.vue";
@@ -11,6 +10,7 @@ import Facebook from "../views/Facebook.vue";
 import Trending from "../views/Trending.vue";
 import Music from "../views/Music.vue";
 import Gaming from "../views/Gaming.vue";
+import History from "../views/History.vue";
 import Movie from "../views/Movie.vue";
 import Profile from "../views/Profile.vue";
 
@@ -28,11 +28,6 @@ const routes: Array<RouteConfig> = [
     path: "/login",
     name: "Login",
     component: Login,
-  },
-  {
-    path: "/sign-up",
-    name: "SignUp",
-    component: SignUp,
   },
   {
     path: "/forgot-password",
@@ -66,6 +61,11 @@ const routes: Array<RouteConfig> = [
     path: "/gaming",
     name: "Gaming",
     component: Gaming,
+  },
+  {
+    path: "/history",
+    name: "History",
+    component: History,
   },
   {
     path: "/youtube",

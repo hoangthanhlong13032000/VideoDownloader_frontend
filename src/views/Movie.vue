@@ -2,7 +2,7 @@
   <div class="main-view">
     <div class="w-100 h-100 main-content flex bg-gray-50">
       <div class="w-100 h-100 main-container">
-        <div class="item w-100 h-100 cursor-pointer" v-for="item in listItem">
+        <div class="item w-100 h-100 cursor-pointer" v-for="(item, i) in listItem" :key="i">
           <div
             class="w-100 h-100 cursor-pointer d-flex"
             v-on:click="showVideo(item)"
@@ -10,7 +10,7 @@
             <img
               v-if="item.thumbnails[0]"
               class="item-img"
-              :src="(item.thumbnails[1] || item.thumbnails[0]).url"
+              :src="item.thumbnails[item.thumbnails.length-1].url"
               width="220px"
               height="150px"
             />
@@ -45,15 +45,12 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "Category",
-  components: {},
   methods: {
     showVideo(item) {
       if (item && item.id) {
-        this.$store.commit("setLoadingStatus", true);
         this.$store.dispatch("getVideosById", item).then(() => {
           this.$store.commit("setReloadPage", false);
           this.$router.push("/");
-          this.$store.commit("setLoadingStatus", false);
         });
       }
     },
@@ -67,8 +64,8 @@ export default {
     this.$store.commit("setLoadingStatus", true);
     this.$store.dispatch("trendingVideo", "movie").then(() => {
       this.$store.commit("setLoadingStatus", false);
+      this.$store.commit("setReloadPage", true);
     });
-    this.$store.commit("setReloadPage", true);
   },
 };
 </script>

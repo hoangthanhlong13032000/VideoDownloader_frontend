@@ -8,7 +8,7 @@
     </div>
     <div class="header-main-action">
       <div class="main-action-container">
-        <InputSearch value="" />
+        <InputSearch />
       </div>
     </div>
     <!--avatar, thông báo-->
@@ -38,8 +38,6 @@
             </v-list-item>
             <v-list-item v-on:click="signOut()">
               <v-list-item-title>
-                <!-- <router-link to="/login" v-on:click.native="">
-                </router-link> -->
                 <div>
                   Sign out
                 </div>
@@ -48,7 +46,6 @@
           </v-list>
         </v-menu>
       </div>
-      <!-- <a class="d-icon icon-support"></a> -->
       <div style="height: 52px; width: auto; border-right: 1px solid #e1e1e1">
         <a class="d-icon icon-notify sm-icon"></a>
       </div>
@@ -97,8 +94,6 @@
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid #f3f4f6;
-  /* border-left: 1px solid #bbbbbb; */
-  // margin-left: 150px;
   color: #212121;
   .header-main-action {
     flex: 0.8;
@@ -157,22 +152,18 @@ import { Auth } from "../../store/auth.ts";
 export default {
   name: "Header",
   components: { InputSearch },
-  data: function() {
-    return {};
-  },
+  data: () => ({}),
   methods: {
     signOut() {
       Auth.dispatch("signOut");
       this.$router.push("/login");
     },
     changeProfile() {
-      // Auth.dispatch("signOut");
       this.$router.push("/profile");
     },
   },
   computed: {
     email() {
-      console.log(Auth.state.email);
       return Auth.state.email;
     },
   },

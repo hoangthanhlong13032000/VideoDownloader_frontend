@@ -186,6 +186,10 @@
   background: url("../assets/Icon/social-media.png");
   background-position: -10px -10px !important;
 }
+.icon-tiktok {
+  background: url("../assets/Icon/social-media.png");
+  background-position: -37px -93px !important;
+}
 .icon-movie {
   background: url("../assets/Icon/media.png");
   background-position: -20px -116px !important;

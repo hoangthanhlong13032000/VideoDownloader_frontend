@@ -1,4 +1,4 @@
-export default class Video {
+export default class Media {
   url: string;
   mimeType: string;
   container: string;

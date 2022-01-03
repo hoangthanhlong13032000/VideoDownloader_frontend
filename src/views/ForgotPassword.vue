@@ -46,7 +46,6 @@
 import { Auth } from "../store/auth";
 export default {
   name: "Login",
-  components: {},
   data() {
     return {
       email: "",

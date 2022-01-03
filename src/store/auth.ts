@@ -110,7 +110,7 @@ export const Auth = new Vuex.Store({
           email: email,
           password: password,
         })
-        .then((result) => {
+        .then(() => {
           res.success = true;
         })
         .catch((err) => {
@@ -181,7 +181,7 @@ export const Auth = new Vuex.Store({
      * @param email
      */
     async recover(context, email) {
-      let res = {
+      const res = {
         isSuccess: false,
         message: "",
       };
@@ -191,17 +191,16 @@ export const Auth = new Vuex.Store({
           res.isSuccess = true;
         })
         .catch(function(err) {
-          res.isSuccess = false;
-          res.message = "";
+          console.log(err);
         });
       return res;
     },
     async updateProfile(context, { email, password }) {
-      let res = {
+      const res = {
         isSuccess: false,
         message: "",
       };
-      let params = {
+      const params = {
         email: email,
         password: password,
         data: {
@@ -215,9 +214,8 @@ export const Auth = new Vuex.Store({
         .put(`${auth_v1}/user`, params, {
           headers: { Authorization: "Bearer " + token },
         })
-        .then((result) => {
+        .then(() => {
           res.isSuccess = true;
-          // context.commit("setUser", { email, password });
           context.dispatch("signOut");
         })
         .catch(function(err) {
